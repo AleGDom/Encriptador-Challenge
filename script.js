@@ -138,6 +138,7 @@ let vector = `<svg width="336" height="304" viewBox="0 0 336 304" fill="none" xm
 </defs>
 </svg>`;
 let texto=document.querySelector(".texto");
+let principal = document.querySelector('.input');
 let botonen=document.querySelector('.boton-en');
 let botondes=document.querySelector('.boton-de');
 let botonCopiar=document.querySelector(".boton-copiar");
@@ -160,6 +161,20 @@ mensajeVacio.classList.add('mensaje-vacio');
 texto.appendChild(imagen);
 texto.appendChild(tituloVacio);
 texto.appendChild(mensajeVacio);
+
+function mensajeNoencontrado(){
+    const mensajeError = document.createElement('P');
+    mensajeError.textContent="Es necesario ingresar un texto";
+    mensajeError.classList.add('mensajeError');
+    principal.appendChild(mensajeError);
+    setTimeout(()=>{
+        principal.removeChild(mensajeError);
+    },3000)
+    texto.appendChild(imagen);
+    texto.appendChild(tituloVacio);
+    texto.appendChild(mensajeVacio);
+
+}
 
 
 
@@ -213,16 +228,20 @@ botonen.addEventListener('click',function(){
         console.log(textoEncriptado);
         parrafoEncriptado.textContent=textoEncriptado;
         texto.appendChild(parrafoEncriptado);
+    } else{
+        parrafoEncriptado.remove();
+        mensajeNoencontrado();
     }
     
 })
 
 botondes.addEventListener('click',function(){
     parrafoEncriptado.textContent="";
-    imagen.remove();
+        
+    if(palabra!=""){
+        imagen.remove();
         mensajeVacio.remove();
         tituloVacio.remove();
-    if(palabra!=""){
         let palabras=palabra.split(" ");
         for(let i=0;i<palabras.length;i++){
             for(let j=1;j<=5;j++){
@@ -239,6 +258,9 @@ botondes.addEventListener('click',function(){
         console.log(textoDes);
         parrafoEncriptado.textContent=textoDes;
         texto.appendChild(parrafoEncriptado);
+    } else{
+        parrafoEncriptado.remove()
+        mensajeNoencontrado();
     }
 })
 
