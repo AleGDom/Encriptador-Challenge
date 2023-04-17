@@ -31,12 +31,13 @@ html {
   .grid-principal{
     display: grid;
     grid-template-columns: 1fr 3fr 2fr;
-    padding: 3rem;
+    padding: 3rem 3rem 1rem 3rem;
   }
 
   .texto{
     background-color: white;
     border-radius: 2rem;
+    height: 870px;
   }
   /*Header*/
   header{
@@ -80,3 +81,39 @@ html {
     color: #0A3871;
   }
 
+  /*Texto-vacio*/
+
+  .texto{
+    padding: 2rem;
+    position: relative;
+  }
+
+  svg{
+    margin: 0 auto;
+    margin-top: 10rem;
+  }
+
+  .titulo-vacio{
+    width: 80%;
+    text-align: center;
+    margin: 2rem auto 1rem auto;
+  }
+
+  .texto .boton-copiar{
+    display: block;
+    text-align: center;
+    
+    width: 14.8rem;
+    position: absolute;
+    right: 35%;
+    top: 90%;
+  }
+
+  .resultado{
+    font-size: 2.4rem;
+    color: #495057;
+    text-align: left;
+    margin: 0 auto;
+    
+
+  }
