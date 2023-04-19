@@ -47,6 +47,28 @@ svg{
   
 }
 
+.logo__label{
+  margin-left: 4rem;
+  background-color: #0A3871;
+  text-align: center;
+  color: white;
+  width: 11rem;
+  padding: .4rem;
+  font-weight: bold;
+  border-radius: 1.5rem;
+
+}
+
+@media(min-width:1440px){
+  .logo__label{
+    margin-top: 4rem;
+    display: block;
+  
+  }
+}
+
+
+
 .principal__textarea{
   background-color: inherit;
   border: none;

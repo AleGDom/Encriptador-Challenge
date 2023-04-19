@@ -14,13 +14,18 @@
     <div class="container contenido-principal"> 
         <div class="logo">
             <img src="images/Vector.png" alt="logo-alura">
+            <label for="modo-libre" class="logo__label">
+                Modo libre
+                <input type="checkbox"id="modo-libre" class="logo__modolibre">
+            </label>
         </div>
         <div class="principal">
-            <textarea name="" id="" cols="30" rows="6" class="principal__textarea" placeholder="Ingrese el texto aquí"></textarea>
+            <textarea name="" id="" cols="30" rows="6" class="principal__textarea" placeholder="Ingrese el texto aquí" autocapitalize="none" pattern="[a-z ]*" oninput="this.value = this.value.replace(/[^a-z\n ]/g, '')"></textarea>
             <p class="principal__instrucciones">Solo letras minúsculas y sin acentos</p>
             <div class="contenedor-botones">
                 <p class="principal__boton-encriptar boton">Encriptar</p>
                 <p class="principal__boton-desencriptar boton">Desencriptar</p>
+                
             </div>
             
         </div>

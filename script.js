@@ -146,6 +146,7 @@ const boton_copiar=document.createElement('P');
 boton_copiar.textContent='Copiar';
 boton_copiar.classList.add('boton');
 boton_copiar.classList.add('boton-copiar');
+const modolibre = document.querySelector('.logo__modolibre');
 
 //textarea
 const textarea=document.querySelector('.principal__textarea');
@@ -300,5 +301,25 @@ boton_copiar.addEventListener('click',e=>{
     document.body.removeChild(inputOculto);
 })
 
+modolibre.addEventListener('change',function(){
+    if(this.checked){
+        textarea.value="";
+        
+        textarea.removeAttribute('autocapitalize')
+        textarea.removeAttribute('pattern');
+        textarea.removeAttribute('oninput');
 
+
+    }else{
+        textarea.value="";
+        
+        textarea.setAttribute('autocapitalize',"none");
+        textarea.setAttribute('pattern',"[a-z ]*");
+        
+        textarea.addEventListener('input', function() {
+            // Ejecutar el código que deseas en el evento "input"
+            this.value = this.value.replace(/[^a-z\n ]/g, '');
+          });
+    }
+})
 
