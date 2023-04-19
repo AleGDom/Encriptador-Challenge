@@ -1,4 +1,4 @@
-let vector = `<svg width="336" height="304" viewBox="0 0 336 304" fill="none" xmlns="http://www.w3.org/2000/svg">
+const muneco = `<svg width="336" height="304" viewBox="0 0 336 304" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_2_1323)">
 <path d="M0.675649 249.836C3.6088 248.4 4.854 244.589 8.03619 243.595C11.3014 242.574 14.9263 244.589 17.9148 242.38C19.2153 241.414 20.1838 239.812 21.7611 239.232C23.1447 238.735 24.5836 239.287 25.9118 239.702C27.0463 240.061 28.1808 240.392 29.3153 240.751C33.8811 242.159 38.4192 243.54 42.9849 244.948C48.1594 246.522 53.3063 248.124 58.4808 249.698C58.9789 249.864 59.2002 249.063 58.7021 248.897C49.2386 245.998 39.8027 243.098 30.3392 240.199C28.1255 239.536 25.8288 238.514 23.5321 238.238C21.9271 238.045 20.6543 238.68 19.5197 239.729C17.9425 241.193 16.7526 242.546 14.4559 242.656C12.5466 242.767 10.6649 242.27 8.75563 242.574C4.82632 243.181 3.60879 247.461 0.288249 249.091C-0.209832 249.367 0.205238 250.085 0.675649 249.836Z" fill="#1D1E23"/>
 <path d="M50.4007 246.357C52.3654 246.854 53.915 244.893 55.6859 244.313C58.0656 243.512 60.6114 243.844 62.7697 245.086C63.2402 245.362 63.6552 244.644 63.1848 244.368C61.3585 243.291 59.2832 242.85 57.1802 243.126C56.267 243.236 55.4092 243.485 54.5791 243.844C53.3892 244.368 52.0057 245.887 50.6221 245.556C50.0963 245.418 49.875 246.219 50.4007 246.357Z" fill="#1D1E23"/>
@@ -137,139 +137,168 @@ let vector = `<svg width="336" height="304" viewBox="0 0 336 304" fill="none" xm
 </clipPath>
 </defs>
 </svg>`;
-let texto=document.querySelector(".texto");
-let principal = document.querySelector('.input');
-let botonen=document.querySelector('.boton-en');
-let botondes=document.querySelector('.boton-de');
-let botonCopiar=document.querySelector(".boton-copiar");
-let mensajeVacio=document.createElement("P");
-let input= document.querySelector(".texto-ingreso");
-let palabra="";
-//Mensaje Vacio
-let imagen=document.createElement("PICTURE");
-let parrafoEncriptado = document.createElement("P");
-parrafoEncriptado.classList.add('resultado');
-let tituloVacio = document.createElement("h2");
-imagen.innerHTML=vector;
-mensajeVacio.textContent="Ingrese el mensaje que desea encriptar o desencriptar";
-tituloVacio.textContent="Ningún mensaje fue encontrado";
+const resultado=document.querySelector('.resultado');
+//Botones
+const boton_encriptar=document.querySelector('.principal__boton-encriptar');
+const boton_desencriptar=document.querySelector('.principal__boton-desencriptar');
+//Botones copiar
+const boton_copiar=document.createElement('P');
+boton_copiar.textContent='Copiar';
+boton_copiar.classList.add('boton');
+boton_copiar.classList.add('boton-copiar');
 
-imagen.classList.add('muneco');
-tituloVacio.classList.add('titulo-vacio');
-mensajeVacio.classList.add('mensaje-vacio');
+//textarea
+const textarea=document.querySelector('.principal__textarea');
 
-texto.appendChild(imagen);
-texto.appendChild(tituloVacio);
-texto.appendChild(mensajeVacio);
+//Lo que escribe el usuario
+let texto_usuario="";
 
-function mensajeNoencontrado(){
-    const mensajeError = document.createElement('P');
-    mensajeError.textContent="Es necesario ingresar un texto";
-    mensajeError.classList.add('mensajeError');
-    principal.appendChild(mensajeError);
-    setTimeout(()=>{
-        principal.removeChild(mensajeError);
-    },3000)
-    texto.appendChild(imagen);
-    texto.appendChild(tituloVacio);
-    texto.appendChild(mensajeVacio);
+//Textos de encriptacion y descencriptacion
+let texto_encriptado="";
+let texto_desencriptado="";
+let parrafoResultado=document.createElement("P");
+parrafoResultado.classList.add('parrafoResultado');
 
-}
-
-
-
-
-//Detectar el texto ingresado
-input.addEventListener('input',e=>{
-    palabra=e.target.value;
-    //if (palabra==""){
-        //texto.appendChild(imagen)
-        //texto.appendChild(mensajeVacio);
-    //} else{
-        //imagen.remove();
-        //mensajeVacio.remove();
-
-    //}
+//Elementos para documento vacio
+const contenedorMensaje = '';
+    //imagen
+    const imagen=document.createElement('DIV');
+    imagen.innerHTML=muneco;
+    //Titulo
+    const titulo = document.createElement('H2');
+    titulo.textContent="Ningun mensaje fue encontrado";
+    titulo.classList.add('resultado__titulo');
+    //Parrafo
+    const parrafo=document.createElement('P');
+    parrafo.textContent="Ingresa el texto que desees encriptar o desencriptar.";
+    parrafo.classList.add('resultado__texto');
+    //Agregando al layout
     
-})
 
-botonen.addEventListener('click',function(){
-    if(palabra!="" ){
-        parrafoEncriptado.textContent="";
+    resultado.appendChild(imagen);
+    resultado.appendChild(titulo);
+    resultado.appendChild(parrafo);
+    
+    function AgregarMensaje(){
+        resultado.appendChild(imagen);
+        resultado.appendChild(titulo);
+        resultado.appendChild(parrafo);
+    }
+
+    function EliminarMensaje(){
         imagen.remove();
-        mensajeVacio.remove();
-        tituloVacio.remove();
-        let prepalabra=palabra.split('');
-        for(i=0;i<prepalabra.length;i++){
-            switch(prepalabra[i]){
+        titulo.remove();
+        parrafo.remove();
+
+    }
+    
+
+    
+
+
+//Funcion para detectar que escribe el usuario
+textarea.addEventListener('input',e=>{
+    texto_usuario=e.target.value;
+    
+});
+
+//Funcion del boton Escriptar
+
+boton_encriptar.addEventListener('click',e=>{
+    if(texto_usuario!=""){
+        EliminarMensaje();
+        parrafoResultado.textContent="";
+        let fragmento_palabra=texto_usuario.split('');
+        for(i=0;i<fragmento_palabra.length;i++){
+            switch(fragmento_palabra[i]){
                 case 'a': 
-                    prepalabra[i]="ai";
+                    fragmento_palabra[i]="ai";
                     break;
                 case 'e':
-                    prepalabra[i]='enter';
+                    fragmento_palabra[i]='enter';
                     break;
                 case 'i':
-                    prepalabra[i]='imes';
+                    fragmento_palabra[i]='imes';
                     break;
                 case 'o':
-                    prepalabra[i]='ober';
+                    fragmento_palabra[i]='ober';
                     break;
                 case 'u':
-                    prepalabra[i]='ufat';
+                    fragmento_palabra[i]='ufat';
+                    break;
+                case 'A': 
+                    fragmento_palabra[i]="AI";
+                    break;
+                case 'E':
+                    fragmento_palabra[i]='ENTER';
+                    break;
+                case 'I':
+                    fragmento_palabra[i]='IMES';
+                    break;
+                case 'O':
+                    fragmento_palabra[i]='OBER';
+                    break;
+                case 'U':
+                    fragmento_palabra[i]='UFAT';
                     break;
                 default: 
                     break;      
+            }  
 
-            }
-            
         }
-        let textoEncriptado=prepalabra.join('');
-        console.log(prepalabra);
-        console.log(textoEncriptado);
-        parrafoEncriptado.textContent=textoEncriptado;
-        texto.appendChild(parrafoEncriptado);
+        
+        texto_encriptado=fragmento_palabra.join(''); 
+        parrafoResultado.textContent=texto_encriptado;
+        resultado.appendChild(parrafoResultado);
+        resultado.appendChild(boton_copiar);
     } else{
-        parrafoEncriptado.remove();
-        mensajeNoencontrado();
+        boton_copiar.remove();
+        parrafoResultado.remove();
+        AgregarMensaje();
     }
-    
 })
 
-botondes.addEventListener('click',function(){
-    parrafoEncriptado.textContent="";
-        
-    if(palabra!=""){
-        imagen.remove();
-        mensajeVacio.remove();
-        tituloVacio.remove();
-        let palabras=palabra.split(" ");
-        for(let i=0;i<palabras.length;i++){
+boton_desencriptar.addEventListener('click',e=>{
+    if (texto_usuario!=""){
+        parrafoResultado.textContent="";
+        EliminarMensaje();
+        let fragmento_palabra=texto_usuario.split(' ');
+        for(i=0;i<fragmento_palabra.length;i++){
             for(let j=1;j<=5;j++){
-                palabras[i]=palabras[i].replace('ai','a')
+                fragmento_palabra[i]=fragmento_palabra[i].replace('ai','a')
                 .replace('enter','e')
                 .replace('imes','i')
                 .replace('ober','o')
-                .replace('ufat','u');
+                .replace('ufat','u')
+                .replace('AI','A')
+                .replace('ENTER','E')
+                .replace('IMES','I')
+                .replace('OBER','O')
+                .replace('UFAT','U');
             }
         }
 
+        texto_desencriptado=fragmento_palabra.join(' ');
+        parrafoResultado.textContent=texto_desencriptado;
+        resultado.appendChild(parrafoResultado);
+        resultado.appendChild(boton_copiar);
         
-        let textoDes=palabras.join(" ");
-        console.log(textoDes);
-        parrafoEncriptado.textContent=textoDes;
-        texto.appendChild(parrafoEncriptado);
     } else{
-        parrafoEncriptado.remove()
-        mensajeNoencontrado();
+        boton_copiar.remove();
+        parrafoResultado.remove();
+        AgregarMensaje();
+
     }
 })
 
-botonCopiar.addEventListener('click', function(){
-    const inputOculto = document.createElement("INPUT");
-    inputOculto.setAttribute('value',parrafoEncriptado.innerText);
+boton_copiar.addEventListener('click',e=>{
+    const inputOculto= document.createElement('INPUT');
+    inputOculto.setAttribute('value',parrafoResultado.innerText);
     document.body.appendChild(inputOculto);
     inputOculto.select();
     document.execCommand('copy');
     document.body.removeChild(inputOculto);
 })
+
+
 
