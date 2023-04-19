@@ -150,7 +150,7 @@ svg{
   background-color: white;
   padding: 3.2rem;
   border-radius: 3.2rem;
-  word-break: break-all;
+  word-wrap: break-word;
   
 }
 @media(min-width:1440px){
